@@ -12,7 +12,7 @@ import {
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import { Comments } from './Comments';
 
-interface PostProps {
+export interface PostProps {
   id: number;
   title: string;
   body: string;
