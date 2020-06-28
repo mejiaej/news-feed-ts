@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ListItem, ListItemText } from '@material-ui/core';
-import { Comment, CommentProps } from '../../components/Comment';
+import { Comment, CommentProps } from '../../components/comment/Comment';
 
 describe('<Comment />', () => {
   it('renders successfully', () => {

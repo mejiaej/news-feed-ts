@@ -9,8 +9,11 @@ import {
   CardActions,
   IconButton,
 } from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
-import { Comments } from './Comments';
+import {
+  ExpandMore as ExpandMoreIcon,
+} from '@material-ui/icons';
+import { Comments } from '../comment/Comments';
+import { BookmarkButton } from './BookmarkButton';
 
 export interface PostProps {
   id: number;
@@ -51,7 +54,10 @@ export const Post = ({ id, title, body }: PostProps) => {
 
   return (
     <Card data-cy="postContainer" className={classes.card}>
-      <CardHeader title={title} />
+      <CardHeader
+        title={title}
+        action={<BookmarkButton id={id} title={title} body={body} />}
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {body}
