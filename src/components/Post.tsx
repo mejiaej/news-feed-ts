@@ -50,7 +50,7 @@ export const Post = ({ id, title, body }: PostProps) => {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card data-cy="postContainer" className={classes.card}>
       <CardHeader title={title} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -59,6 +59,7 @@ export const Post = ({ id, title, body }: PostProps) => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
+          data-cy="postExpand"
           className={classes.expand}
           onClick={handleExpandClick}
           aria-expanded={expanded}

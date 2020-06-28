@@ -1,6 +1,11 @@
 {
   "extends": ["airbnb-typescript", "react-app", "prettier"],
-  "plugins": ["prettier", "react-hooks", "@typescript-eslint", "jsx-a11y"],
+  "plugins": [
+    "prettier",
+    "react-hooks",
+    "@typescript-eslint",
+    "jsx-a11y"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -63,15 +68,19 @@
       }
     ],
     "jsx-a11y/anchor-is-valid": [
-      "error", {
-        "components": [ "Link"],
-        "specialLink": [ "to", "hrefLeft", "hrefRight" ],
-        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to", "hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
       }
     ],
-    "no-param-reassign": ["error", { "ignorePropertyModificationsFor": ["draft"] }],
+    "no-param-reassign": [
+      "error",
+      { "ignorePropertyModificationsFor": ["draft"] }
+    ],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn", 
+    "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",

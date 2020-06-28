@@ -30,7 +30,7 @@ export const Comments = ({ postId }: CommetsProps) => {
   if (!done) return <LinearProgress />;
 
   return (
-    <Collapse in={true} timeout="auto" unmountOnExit>
+    <Collapse data-cy="commentsContainer" in={true} timeout="auto" unmountOnExit>
       <CardContent>
         <List>
           {comments.map(({ id, name, email, body }) => (
