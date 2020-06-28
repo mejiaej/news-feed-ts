@@ -8,7 +8,11 @@ export interface CommentProps {
 }
 
 export const Comment = ({ name, email, body }: CommentProps) => (
-  <ListItem alignItems="flex-start">
-    <ListItemText primary={`${name} - ${email}`} secondary={body} />
+  <ListItem data-cy="commentContainer" alignItems="flex-start">
+    <ListItemText
+      data-cy="commentText"
+      primary={`${name} - ${email}`}
+      secondary={body}
+    />
   </ListItem>
 );
