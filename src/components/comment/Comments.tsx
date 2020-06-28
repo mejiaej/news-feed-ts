@@ -6,7 +6,7 @@ import {
   Divider,
   LinearProgress,
 } from '@material-ui/core';
-import { getComments } from '../fetch/Fetch';
+import { getComments } from '../../fetch/Fetch';
 import { Comment } from './Comment';
 
 interface CommetsProps {

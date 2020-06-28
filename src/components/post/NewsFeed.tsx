@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { Post as PostComponent } from './Post';
-import { getPosts } from '../fetch/Fetch';
-import { StoreState } from '../redux';
-import { Post } from '../redux/reducers/BookmarkReducer';
+import { getPosts } from '../../fetch/Fetch';
+import { StoreState } from '../../redux';
+import { Post } from '../../redux/reducers/BookmarkReducer';
 
 const useStyles = makeStyles(() => ({
   container: {

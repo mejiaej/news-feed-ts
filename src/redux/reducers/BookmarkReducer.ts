@@ -13,7 +13,7 @@ export interface BookmarkState {
   posts: Post[];
 }
 
-const INITIAL_STATE: BookmarkState = {
+export const BOOKMARK_INITIAL_STATE: BookmarkState = {
   showBookmarks: false,
   counter: 0,
   posts: [],
@@ -34,10 +34,10 @@ export const bookmarkReducer = produce(
         draft.showBookmarks = true;
         break;
       case BookmarkActionTypes.HideBookmarks:
-        draft.counter = INITIAL_STATE.counter;
-        draft.posts = INITIAL_STATE.posts;
-        draft.showBookmarks = INITIAL_STATE.showBookmarks;
+        draft.counter = BOOKMARK_INITIAL_STATE.counter;
+        draft.posts = BOOKMARK_INITIAL_STATE.posts;
+        draft.showBookmarks = BOOKMARK_INITIAL_STATE.showBookmarks;
     }
   },
-  INITIAL_STATE,
+  BOOKMARK_INITIAL_STATE,
 );

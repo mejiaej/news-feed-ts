@@ -9,8 +9,8 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
-import { Post, PostProps } from '../../components/Post';
-import { Comments } from '../../components/Comments';
+import { Post, PostProps } from '../../components/post/Post';
+import { Comments } from '../../components/comment/Comments';
 
 describe('<Post />', () => {
   const props: PostProps = {

@@ -9,15 +9,11 @@ import {
   CardActions,
   IconButton,
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   ExpandMore as ExpandMoreIcon,
-  BookmarkBorder as BookmarkBorderIcon,
-  Bookmark as BookmarkIcon,
 } from '@material-ui/icons';
-import { Comments } from './Comments';
-import { addBookmark, removeBookmark } from '../redux/actions/BookmarkActions';
-import { StoreState } from '../redux';
+import { Comments } from '../comment/Comments';
+import { BookmarkButton } from './BookmarkButton';
 
 export interface PostProps {
   id: number;
@@ -45,22 +41,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Post = ({ id, title, body }: PostProps) => {
   const [expanded, setExpanded] = useState(false);
-  const marked = useSelector(({ Bookmark }: StoreState) =>
-    Bookmark.posts.find((post) => post.id === id),
-  );
   const classes = useStyles({ expanded });
-  const dispatch = useDispatch();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
-
-  const mark = () => {
-    dispatch(addBookmark({ id, title, body }));
-  };
-
-  const unmark = () => {
-    dispatch(removeBookmark(id));
   };
 
   let commentsComponent;
@@ -68,15 +52,12 @@ export const Post = ({ id, title, body }: PostProps) => {
     commentsComponent = <Comments postId={id} />;
   }
 
-  const bookmarkComponent = (
-    <IconButton onClick={marked ? unmark : mark}>
-      {marked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-    </IconButton>
-  );
-
   return (
     <Card data-cy="postContainer" className={classes.card}>
-      <CardHeader title={title} action={bookmarkComponent} />
+      <CardHeader
+        title={title}
+        action={<BookmarkButton id={id} title={title} body={body} />}
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {body}
