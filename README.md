@@ -11,14 +11,14 @@ $ yarn start
 ## Unit testing
 
 ```batch
-# start server
+# run tests
 $ yarn test
 ```
 
 ## E2E testing
 
 ```batch
-# start server
+# run tests
 $ yarn cy:run
 ```
 
