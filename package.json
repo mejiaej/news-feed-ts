@@ -15,7 +15,7 @@
     "@types/react-redux": "7.1.9",
     "@types/redux-promise": "0.5.29",
     "axios": "0.19.2",
-    "immer": "6.0.5",
+    "immer": "9.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "7.2.0",
