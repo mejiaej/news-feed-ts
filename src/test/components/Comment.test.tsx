@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ListItem, ListItemText } from '@material-ui/core';
+import { render, screen } from '@testing-library/react';
 import { Comment, CommentProps } from '../../components/comment/Comment';
 
 describe('<Comment />', () => {
@@ -11,16 +10,16 @@ describe('<Comment />', () => {
       body: 'body test',
     };
 
-    const comment = shallow(<Comment {...props} />);
-    const listItem = comment.find(ListItem);
-    expect(listItem.length).toBe(1);
-    expect(listItem.prop('alignItems')).toBe('flex-start');
-
-    const listItemText = listItem.find(ListItemText);
-    expect(listItemText.length).toBe(1);
-    expect(listItemText.prop('primary')).toEqual(
-      `${props.name} - ${props.email}`,
-    );
-    expect(listItemText.prop('secondary')).toEqual(props.body);
+    render(<Comment {...props} />);
+    
+    // Verify that the component renders (using data-testid from the component)
+    const listItem = screen.getByTestId('commentContainer');
+    expect(listItem).toBeInTheDocument();
+    
+    // Verify that the primary text contains the name and email
+    expect(screen.getByText(`${props.name} - ${props.email}`)).toBeInTheDocument();
+    
+    // Verify that the secondary text (body) is present
+    expect(screen.getByText(props.body)).toBeInTheDocument();
   });
 });
