@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import {
-  makeStyles,
-  Theme,
   Card,
   CardHeader,
   CardContent,
   Typography,
   CardActions,
   IconButton,
-} from '@material-ui/core';
-import {
-  ExpandMore as ExpandMoreIcon,
-} from '@material-ui/icons';
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Comments } from '../comment/Comments';
 import { BookmarkButton } from './BookmarkButton';
 
@@ -21,27 +17,8 @@ export interface PostProps {
   body: string;
 }
 
-interface Expanded {
-  expanded: boolean;
-}
-
-const useStyles = makeStyles((theme: Theme) => ({
-  card: {
-    maxWidth: 500,
-    marginTop: theme.spacing(5),
-  },
-  expand: ({ expanded }: Expanded) => ({
-    transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }),
-}));
-
 export const Post = ({ id, title, body }: PostProps) => {
   const [expanded, setExpanded] = useState(false);
-  const classes = useStyles({ expanded });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -53,7 +30,14 @@ export const Post = ({ id, title, body }: PostProps) => {
   }
 
   return (
-    <Card data-cy="postContainer" data-testid="postContainer" className={classes.card}>
+    <Card 
+      data-cy="postContainer" 
+      data-testid="postContainer" 
+      sx={{ 
+        maxWidth: 500, 
+        marginTop: 5 
+      }}
+    >
       <CardHeader
         title={title}
         action={<BookmarkButton id={id} title={title} body={body} />}
@@ -67,7 +51,13 @@ export const Post = ({ id, title, body }: PostProps) => {
         <IconButton
           data-cy="postExpand"
           data-testid="postExpand"
-          className={classes.expand}
+          sx={{
+            transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            marginLeft: 'auto',
+            transition: (theme) => theme.transitions.create('transform', {
+              duration: theme.transitions.duration.shortest,
+            }),
+          }}
           onClick={handleExpandClick}
           aria-expanded={expanded}
         >

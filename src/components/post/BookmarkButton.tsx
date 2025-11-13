@@ -1,10 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IconButton } from '@material-ui/core';
-import {
-  BookmarkBorder as BookmarkBorderIcon,
-  Bookmark as BookmarkIcon,
-} from '@material-ui/icons';
+import { IconButton } from '@mui/material';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { StoreState } from '../../redux';
 import {
   addBookmark,

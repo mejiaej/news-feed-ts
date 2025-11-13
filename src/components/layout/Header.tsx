@@ -3,7 +3,7 @@ import {
   Card,
   CardContent,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import { BookmarksButton } from './BookmarksButton';
 
 export const Header = () => {

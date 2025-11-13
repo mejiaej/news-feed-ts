@@ -1,9 +1,7 @@
 import React from 'react';
-import { IconButton } from '@material-ui/core';
-import {
-  Bookmarks as BookmarksIcon,
-  Cancel as CancelIcon,
-} from '@material-ui/icons';
+import { IconButton } from '@mui/material';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from '../../redux';
 import {
