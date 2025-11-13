@@ -1,16 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import {
-  Card,
-  CardHeader,
-  Typography,
-  CardContent,
-  CardActions,
-  IconButton,
-} from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import { Post, PostProps } from '../../components/post/Post';
-import { Comments } from '../../components/comment/Comments';
+
+// Mock the Comments component to avoid API calls
+jest.mock('../../components/comment/Comments', () => ({
+  Comments: ({ postId }: { postId: number }) => (
+    <div data-testid="comments-component" data-postid={postId}>
+      Comments for post {postId}
+    </div>
+  ),
+}));
+
+const mockStore = configureStore([]);
 
 describe('<Post />', () => {
   const props: PostProps = {
@@ -19,43 +23,62 @@ describe('<Post />', () => {
     body: 'body test',
   };
 
-  it('renders no expanded', () => {
-    const post = shallow(<Post {...props} />);
-    const card = post.find(Card);
-    expect(card.length).toBe(1);
+  let store: any;
 
-    const cardHeader = card.find(CardHeader);
-    expect(cardHeader.length).toBe(1);
-    expect(cardHeader.prop('title')).toBe(props.title);
-
-    const typography = card.find(CardContent).find(Typography);
-    expect(typography.length).toBe(1);
-    expect(typography.prop('variant')).toBe('body2');
-    expect(typography.prop('color')).toBe('textSecondary');
-    expect(typography.prop('component')).toBe('p');
-    expect(typography.prop('children')).toBe(props.body);
-
-    const cardActions = card.find(CardActions);
-    expect(cardActions.length).toBe(1);
-    expect(cardActions.prop('disableSpacing')).toBe(true);
-
-    const iconButton = cardActions.find(IconButton);
-    expect(iconButton.length).toBe(1);
-
-    const expandMoreIcon = iconButton.find(ExpandMoreIcon);
-    expect(expandMoreIcon.length).toBe(1);
-
-    const comments = card.find(Comments);
-    expect(comments.exists()).toBe(false);
+  beforeEach(() => {
+    store = mockStore({
+      Bookmark: {
+        showBookmarks: false,
+        counter: 0,
+        posts: [],
+      },
+    });
   });
 
-  it('renders comments', () => {
-    const post = shallow(<Post {...props} />);
-    const iconButton = post.find(IconButton);
-    iconButton.simulate('click');
+  it('renders no expanded', () => {
+    render(
+      <Provider store={store}>
+        <Post {...props} />
+      </Provider>
+    );
     
-    const comments = post.find(Comments);
-    expect(comments.exists()).toBe(true);
-    expect(comments.prop('postId')).toBe(props.id);
+    // Verify that the post container is rendered
+    const postContainer = screen.getByTestId('postContainer');
+    expect(postContainer).toBeInTheDocument();
+
+    // Verify that the title is present
+    expect(screen.getByText(props.title)).toBeInTheDocument();
+
+    // Verify that the body is present as Typography
+    expect(screen.getByText(props.body)).toBeInTheDocument();
+
+    // Verify that the expand button exists
+    const expandButton = screen.getByTestId('postExpand');
+    expect(expandButton).toBeInTheDocument();
+    expect(expandButton).toHaveAttribute('aria-expanded', 'false');
+
+    // Verify that comments are NOT visible initially
+    expect(screen.queryByTestId('comments-component')).not.toBeInTheDocument();
+  });
+
+  it('renders comments', async () => {
+    const user = userEvent.setup();
+    render(
+      <Provider store={store}>
+        <Post {...props} />
+      </Provider>
+    );
+    
+    // Click the expand button
+    const expandButton = screen.getByTestId('postExpand');
+    await user.click(expandButton);
+    
+    // Verify that comments are now visible
+    const commentsComponent = screen.getByTestId('comments-component');
+    expect(commentsComponent).toBeInTheDocument();
+    expect(commentsComponent).toHaveAttribute('data-postid', props.id.toString());
+    
+    // Verify that the button is expanded
+    expect(expandButton).toHaveAttribute('aria-expanded', 'true');
   });
 });
