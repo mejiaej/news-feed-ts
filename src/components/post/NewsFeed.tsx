@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Post as PostComponent } from './Post';
 import { getPosts } from '../../fetch/Fetch';
 import { StoreState } from '../../redux';
 import { Post } from '../../redux/reducers/BookmarkReducer';
 
-const useStyles = makeStyles(() => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: '2rem',
-  },
-}));
-
 export const NewsFeed = () => {
-  const classes = useStyles();
   const [posts, setPosts] = useState<Post[]>([]);
   const [done, setDone] = useState(false);
 
@@ -49,10 +38,17 @@ export const NewsFeed = () => {
   }
 
   return (
-    <div className={classes.container}>
+    <Box 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: '2rem',
+      }}
+    >
       {posts.map(({ id, title, body }) => (
         <PostComponent key={id} id={id} title={title} body={body} />
       ))}
-    </div>
+    </Box>
   );
 };

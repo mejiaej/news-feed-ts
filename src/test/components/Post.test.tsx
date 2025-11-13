@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import configureStore from 'redux-mock-store';
 import { Post, PostProps } from '../../components/post/Post';
 
@@ -15,6 +16,7 @@ jest.mock('../../components/comment/Comments', () => ({
 }));
 
 const mockStore = configureStore([]);
+const theme = createTheme();
 
 describe('<Post />', () => {
   const props: PostProps = {
@@ -38,7 +40,9 @@ describe('<Post />', () => {
   it('renders no expanded', () => {
     render(
       <Provider store={store}>
-        <Post {...props} />
+        <ThemeProvider theme={theme}>
+          <Post {...props} />
+        </ThemeProvider>
       </Provider>
     );
     
@@ -65,7 +69,9 @@ describe('<Post />', () => {
     const user = userEvent.setup();
     render(
       <Provider store={store}>
-        <Post {...props} />
+        <ThemeProvider theme={theme}>
+          <Post {...props} />
+        </ThemeProvider>
       </Provider>
     );
     

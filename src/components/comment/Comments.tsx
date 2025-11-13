@@ -5,7 +5,7 @@ import {
   List,
   Divider,
   LinearProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 import { getComments } from '../../fetch/Fetch';
 import { Comment } from './Comment';
 

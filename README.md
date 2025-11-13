@@ -5,7 +5,7 @@
 $ yarn install
 
 # start server
-$ yarn start
+$ yarn dev
 ```
 
 ## Unit testing
